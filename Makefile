@@ -4,8 +4,10 @@ MK_DIR = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 IMAGE_NAME = lunix33/asterisk
 TAG ?= latest
 
-CONFIG = /etc/asterisk
-SPOOL = /var/spool/asterisk
+AST_LOCAL_CONFIG ?= $(MK_DIR)config
+AST_REMOTE_CONFIG = /etc/asterisk
+AST_LOCAL_SPOOL ?= $(MK_DIR)spool
+AST_REMOTE_SPOOL = /var/spool/asterisk
 
 build:
 	docker build -t "$(IMAGE_NAME):$(TAG)" .
@@ -14,8 +16,8 @@ run:
 	docker run -d \
 		--restart=unless-stopped \
 		--network="host" \
-		--volume="$(MK_DIR)config:$(CONFIG)" \
-		--volume="$(MK_DIR)spool:$(SPOOL)" \
+		--volume="$(AST_LOCAL_CONFIG):$(AST_REMOTE_CONFIG)" \
+		--volume="$(AST_LOCAL_SPOOL):$(AST_REMOTE_SPOOL)" \
 		$(IMAGE_NAME)
 
 clean:

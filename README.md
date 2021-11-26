@@ -23,8 +23,9 @@ the image built with `make`.
 
 By default, the container will use a `host`
 network configuration.\
-Will mount the `{project_root}/config` to `/etc/asterisk` and
-`{project_root}/spool` to `/run/spool/asterisk` as volumes.\
+Will mount the `AST_LOCAL_CONFIG` (default: `{project_root}/config`) to
+`/etc/asterisk` and `AST_LOCAL_SPOOL` (default: `{project_root}/spool`) to
+`/run/spool/asterisk` as volumes.\
 The container is also set to restart automatically unless explicitly
 stopped using `docker stop`.
 
